@@ -226,75 +226,61 @@ namespace SGICUwebApp
 
             }
 
-            protected void btnAjouter_Click(object sender, EventArgs e)
+        protected void btnAjouter_Click(object sender, EventArgs e)
+        {
+            var lescoursAjout = from Cour courschoisi in entity.Cours
+                                where courschoisi.numcours == numCours
+                                select courschoisi;
+
+            var chosenAjout = lescoursAjout.FirstOrDefault();
+
+            var lesValidations = from Validation val in entity.Validations
+                                 where val.etudiant == code
+                                 select val;
+
+            var lesInscriptions = from Inscription insi in entity.Inscriptions
+                                  where insi.codepermanent == code
+                                  select insi;
+
+            bool preqDone = true;
+
+            if (chosenAjout.session > etud.session)
             {
-
-
-
-
-
-                var lescoursAjout = from Cour courschoisi in entity.Cours
-                                    where courschoisi.numcours == numCours
-                                    select courschoisi;
-
-                var chosenAjout = lescoursAjout.FirstOrDefault();
-
-                var lesValidations = from Validation val in entity.Validations
-                                     where val.etudiant == code
-                                     select val;
-
-                var lesInscriptions = from Inscription insi in entity.Inscriptions
-                                      where insi.codepermanent == code
-                                      select insi;
-
-                bool preqDone;
-
-
-
-                if (chosenAjout.session > etud.session)
-                {
-                    lblError.Text = "Vous ne pouvez pas ajouter un cours d'une session supérieure!";
-                }
-                else if (chosenAjout.prerequis != null)
-                {
-                    // Check if the prerequisite course has been validated by the student
-                    preqDone = lesValidations.Any(val => val.numcours == chosenAjout.prerequis);
-
-
-                    if (!preqDone)
-                    {
-                        lblError.Text = "Vous ne pouvez pas ajouter ce cours, il faut valider son prérequis!";
-                    }
-
-                }
-
-
-
-                Inscription ins = new Inscription();
-                ins.numcours = chosenAjout.numcours;
-                ins.codepermanent = etud.codepermanent;
-                ins.dateInsription = DateTime.Today.Date;
-
-                if (lesInscriptions.Any(inscription => inscription.numcours == ins.numcours))
-                {
-                    lblError.Text = "Vous avez déjà ajouté ce cours";
-                }
-                else
-                {
-                    entity.Inscriptions.Add(ins);
-                    entity.SaveChanges();
-                    lblError.Text = "Vous avez été inscrit à ce cours avec succès";
-                    RemplirMesCours();
-
-
-                }
-
-
-
-
+                lblError.Text = "Vous ne pouvez pas ajouter un cours d'une session supérieure!";
+                return;  
             }
 
-            protected void lstMesCours_SelectedIndexChanged(object sender, EventArgs e)
+            if (chosenAjout.prerequis != null)
+            {
+                // Check if the prerequisite course has been validated by the student
+                preqDone = lesValidations.Any(val => val.numcours == chosenAjout.prerequis);
+            }
+
+            if (!preqDone)
+            {
+                lblError.Text = "Vous ne pouvez pas ajouter ce cours, il faut valider son prérequis!";
+                return;  
+            }
+
+            Inscription ins = new Inscription();
+            ins.numcours = chosenAjout.numcours;
+            ins.codepermanent = etud.codepermanent;
+            ins.dateInsription = DateTime.Today.Date;
+
+            if (lesInscriptions.Any(inscription => inscription.numcours == ins.numcours))
+            {
+                lblError.Text = "Vous avez déjà ajouté ce cours";
+            }
+            else
+            {
+                entity.Inscriptions.Add(ins);
+                entity.SaveChanges();
+                lblError.Text = "Vous avez été inscrit à ce cours avec succès";
+                RemplirMesCours();
+            }
+        }
+
+        protected void lstMesCours_SelectedIndexChanged(object sender, EventArgs e)
             {
 
                 numcoursAabondonner = lstMesCours.SelectedValue.ToString();
