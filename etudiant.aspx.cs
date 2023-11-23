@@ -11,6 +11,8 @@ namespace SGICUwebApp
     {
         static sgicuEntities entity;
         static string code;
+        static string progname;
+        static string sess;
         static Etudiant etud;
         static string numCours;
         static string numcoursAabondonner;
@@ -23,6 +25,9 @@ namespace SGICUwebApp
                 if (Session["codepermanent"] != null)
                 {
                     code = Session["codepermanent"].ToString();
+                    progname = Session["programme"].ToString();
+                    sess= Session["session"].ToString();
+
 
                 }
                 else
@@ -39,6 +44,9 @@ namespace SGICUwebApp
                 etud = lesetudiants.First();
 
                 lblWlcm.Text = etud.nom.ToString();
+                lblInfo.Text = "<b>Programme :</b> " + progname + "<br/><b>Session :</b> " + sess;
+                
+
 
 
 

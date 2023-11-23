@@ -81,7 +81,7 @@
 
             <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="logButton" OnClick="btnLogin_Click" />
 
-            <asp:Label ID="lblError" runat="server" Text="Label" CssClass="errorText"></asp:Label>
+            <asp:Label ID="lblError" runat="server" Text="" CssClass="errorText"></asp:Label>
         </div>
     </form>
 

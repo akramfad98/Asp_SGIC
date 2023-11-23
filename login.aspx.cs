@@ -30,14 +30,19 @@ namespace SGICUwebApp
                 string mdp= txtPassword.Text.ToString();
 
                 var lesetudiants = from Etudiant et in entity.Etudiants
+                                   join Programme prog in entity.Programmes
+                                   on et.programme equals prog.IdProgramme
                                    where et.codepermanent == num && et.mdp == mdp
                                    select new
                                    {
                                        Numero = et.codepermanent,
                                        Mdp = et.mdp,
+                                       Sess = et.session,
+                                       ProgName = prog.nom
                                    };
 
-                if (!lesetudiants.Any()) 
+
+            if (!lesetudiants.Any()) 
                 {
 
                     lblError.Text = "Code Permanent or Mot de Passe is incorrect.";
@@ -47,9 +52,14 @@ namespace SGICUwebApp
                 else
                 {
                     string codepermanent = lesetudiants.First().Numero;
+                    string prog = lesetudiants.First().ProgName;
+                    Int32 session = Convert.ToInt32(lesetudiants.First().Sess);
+                    
 
                     
                     Session["codepermanent"] = codepermanent;
+                    Session["programme"] = prog;
+                    Session["session"] = session;
                     Response.Redirect("etudiant.aspx");
                 }
 

@@ -122,6 +122,7 @@
             <h1>Gestion Des Cours</h1>
             <hr />
             <h2>Bienvenu <asp:Label ID="lblWlcm" runat="server" Text="" Font-Bold="True"></asp:Label></h2>
+            <asp:Label ID="lblInfo" runat="server" Text=""></asp:Label>
 
             <div class="flex-row">
                 <div class="box">
