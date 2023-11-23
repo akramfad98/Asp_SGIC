@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="sgicuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="mdp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Cour">
+    <Key>
+      <PropertyRef Name="numcours" />
+    </Key>
+    <Property Name="numcours" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="titre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="programme" Type="Int32" />
+    <Property Name="session" Type="Int32" />
+    <Property Name="prerequis" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="heures" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Programme1" Relationship="Self.FK_Cours_ToProgramme" FromRole="Cours" ToRole="Programme" />
+  </EntityType>
+  <EntityType Name="Enseignement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="numcours" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sessionEncours" Type="Int32" />
+    <Property Name="idEnseignant" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Etudiant">
+    <Key>
+      <PropertyRef Name="codepermanent" />
+    </Key>
+    <Property Name="codepermanent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="mdp" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="session" Type="Int32" />
+    <Property Name="programme" Type="Int32" />
+    <NavigationProperty Name="Programme1" Relationship="Self.FK_Etudiant_ToProgramme" FromRole="Etudiants" ToRole="Programme" />
+  </EntityType>
+  <EntityType Name="Inscription">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codepermanent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="numcours" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dateInsription" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Professeur">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="mdp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Programme">
+    <Key>
+      <PropertyRef Name="IdProgramme" />
+    </Key>
+    <Property Name="IdProgramme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="profil" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="nbrSession" Type="Int32" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_Cours_ToProgramme" FromRole="Programme" ToRole="Cours" />
+    <NavigationProperty Name="Etudiants" Relationship="Self.FK_Etudiant_ToProgramme" FromRole="Programme" ToRole="Etudiants" />
+  </EntityType>
+  <EntityType Name="Validation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="numcours" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="etudiant" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Cours_ToProgramme">
+    <End Role="Programme" Type="Self.Programme" Multiplicity="0..1" />
+    <End Role="Cours" Type="Self.Cour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programme">
+        <PropertyRef Name="IdProgramme" />
+      </Principal>
+      <Dependent Role="Cours">
+        <PropertyRef Name="programme" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Etudiant_ToProgramme">
+    <End Role="Programme" Type="Self.Programme" Multiplicity="0..1" />
+    <End Role="Etudiants" Type="Self.Etudiant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programme">
+        <PropertyRef Name="IdProgramme" />
+      </Principal>
+      <Dependent Role="Etudiants">
+        <PropertyRef Name="programme" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="sgicuEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Cours" EntityType="Self.Cour" />
+    <EntitySet Name="Enseignements" EntityType="Self.Enseignement" />
+    <EntitySet Name="Etudiants" EntityType="Self.Etudiant" />
+    <EntitySet Name="Inscriptions" EntityType="Self.Inscription" />
+    <EntitySet Name="Professeurs" EntityType="Self.Professeur" />
+    <EntitySet Name="Programmes" EntityType="Self.Programme" />
+    <EntitySet Name="Validations" EntityType="Self.Validation" />
+    <AssociationSet Name="FK_Cours_ToProgramme" Association="Self.FK_Cours_ToProgramme">
+      <End Role="Programme" EntitySet="Programmes" />
+      <End Role="Cours" EntitySet="Cours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Etudiant_ToProgramme" Association="Self.FK_Etudiant_ToProgramme">
+      <End Role="Programme" EntitySet="Programmes" />
+      <End Role="Etudiants" EntitySet="Etudiants" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

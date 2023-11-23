@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="sgicuModelStoreContainer" CdmEntityContainer="sgicuEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="sgicuModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="mdp" ColumnName="mdp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cours">
+      <EntityTypeMapping TypeName="sgicuModel.Cour">
+        <MappingFragment StoreEntitySet="Cours">
+          <ScalarProperty Name="numcours" ColumnName="numcours" />
+          <ScalarProperty Name="titre" ColumnName="titre" />
+          <ScalarProperty Name="programme" ColumnName="programme" />
+          <ScalarProperty Name="session" ColumnName="session" />
+          <ScalarProperty Name="prerequis" ColumnName="prerequis" />
+          <ScalarProperty Name="heures" ColumnName="heures" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enseignements">
+      <EntityTypeMapping TypeName="sgicuModel.Enseignement">
+        <MappingFragment StoreEntitySet="Enseignement">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="numcours" ColumnName="numcours" />
+          <ScalarProperty Name="sessionEncours" ColumnName="sessionEncours" />
+          <ScalarProperty Name="idEnseignant" ColumnName="idEnseignant" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Etudiants">
+      <EntityTypeMapping TypeName="sgicuModel.Etudiant">
+        <MappingFragment StoreEntitySet="Etudiants">
+          <ScalarProperty Name="codepermanent" ColumnName="codepermanent" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="mdp" ColumnName="mdp" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+          <ScalarProperty Name="session" ColumnName="session" />
+          <ScalarProperty Name="programme" ColumnName="programme" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inscriptions">
+      <EntityTypeMapping TypeName="sgicuModel.Inscription">
+        <MappingFragment StoreEntitySet="Inscription">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="codepermanent" ColumnName="codepermanent" />
+          <ScalarProperty Name="numcours" ColumnName="numcours" />
+          <ScalarProperty Name="dateInsription" ColumnName="dateInsription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Professeurs">
+      <EntityTypeMapping TypeName="sgicuModel.Professeur">
+        <MappingFragment StoreEntitySet="Professeurs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="mdp" ColumnName="mdp" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Programmes">
+      <EntityTypeMapping TypeName="sgicuModel.Programme">
+        <MappingFragment StoreEntitySet="Programme">
+          <ScalarProperty Name="IdProgramme" ColumnName="IdProgramme" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="profil" ColumnName="profil" />
+          <ScalarProperty Name="nbrSession" ColumnName="nbrSession" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Validations">
+      <EntityTypeMapping TypeName="sgicuModel.Validation">
+        <MappingFragment StoreEntitySet="Validations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="numcours" ColumnName="numcours" />
+          <ScalarProperty Name="etudiant" ColumnName="etudiant" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

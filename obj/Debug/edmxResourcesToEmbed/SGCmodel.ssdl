@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="sgicuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="75" />
+    <Property Name="email" Type="nvarchar" MaxLength="75" />
+    <Property Name="mdp" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Cours">
+    <Key>
+      <PropertyRef Name="numcours" />
+    </Key>
+    <Property Name="numcours" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="titre" Type="nvarchar" MaxLength="100" />
+    <Property Name="programme" Type="int" />
+    <Property Name="session" Type="int" />
+    <Property Name="prerequis" Type="nvarchar" MaxLength="100" />
+    <Property Name="heures" Type="int" />
+    <Property Name="description" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Enseignement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numcours" Type="nvarchar" MaxLength="50" />
+    <Property Name="sessionEncours" Type="int" />
+    <Property Name="idEnseignant" Type="int" />
+  </EntityType>
+  <EntityType Name="Etudiants">
+    <Key>
+      <PropertyRef Name="codepermanent" />
+    </Key>
+    <Property Name="codepermanent" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="75" />
+    <Property Name="email" Type="nvarchar" MaxLength="75" />
+    <Property Name="mdp" Type="nvarchar" MaxLength="10" />
+    <Property Name="telephone" Type="nvarchar" MaxLength="50" />
+    <Property Name="session" Type="int" />
+    <Property Name="programme" Type="int" />
+  </EntityType>
+  <EntityType Name="Inscription">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codepermanent" Type="nvarchar" MaxLength="50" />
+    <Property Name="numcours" Type="nvarchar" MaxLength="50" />
+    <Property Name="dateInsription" Type="date" />
+  </EntityType>
+  <EntityType Name="Professeurs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="50" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="mdp" Type="nvarchar" MaxLength="50" />
+    <Property Name="telephone" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Programme">
+    <Key>
+      <PropertyRef Name="IdProgramme" />
+    </Key>
+    <Property Name="IdProgramme" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="75" />
+    <Property Name="profil" Type="nvarchar" MaxLength="100" />
+    <Property Name="nbrSession" Type="int" />
+  </EntityType>
+  <EntityType Name="Validations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numcours" Type="varchar" MaxLength="75" />
+    <Property Name="etudiant" Type="nvarchar" MaxLength="75" />
+  </EntityType>
+  <Association Name="FK_Cours_ToProgramme">
+    <End Role="Programme" Type="Self.Programme" Multiplicity="0..1" />
+    <End Role="Cours" Type="Self.Cours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programme">
+        <PropertyRef Name="IdProgramme" />
+      </Principal>
+      <Dependent Role="Cours">
+        <PropertyRef Name="programme" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Etudiant_ToProgramme">
+    <End Role="Programme" Type="Self.Programme" Multiplicity="0..1" />
+    <End Role="Etudiants" Type="Self.Etudiants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programme">
+        <PropertyRef Name="IdProgramme" />
+      </Principal>
+      <Dependent Role="Etudiants">
+        <PropertyRef Name="programme" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="sgicuModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cours" EntityType="Self.Cours" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Enseignement" EntityType="Self.Enseignement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Etudiants" EntityType="Self.Etudiants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inscription" EntityType="Self.Inscription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Professeurs" EntityType="Self.Professeurs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Programme" EntityType="Self.Programme" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Validations" EntityType="Self.Validations" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cours_ToProgramme" Association="Self.FK_Cours_ToProgramme">
+      <End Role="Programme" EntitySet="Programme" />
+      <End Role="Cours" EntitySet="Cours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Etudiant_ToProgramme" Association="Self.FK_Etudiant_ToProgramme">
+      <End Role="Programme" EntitySet="Programme" />
+      <End Role="Etudiants" EntitySet="Etudiants" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
