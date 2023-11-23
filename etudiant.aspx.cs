@@ -287,5 +287,14 @@ namespace SGICUwebApp
                 btnAbandonner.Visible = true;
 
             }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            
+            Session.Clear();
+
+            
+            Response.Redirect("login.aspx");
         }
+    }
     }

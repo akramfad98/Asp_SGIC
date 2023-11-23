@@ -177,6 +177,7 @@
                 <asp:ListBox ID="lstMesCours" runat="server" CssClass="list-box" AutoPostBack="True" OnSelectedIndexChanged="lstMesCours_SelectedIndexChanged"></asp:ListBox>
             </div>
         </div>
+        <asp:Button ID="btnLogout" runat="server" Text="Quitter" CssClass="button" OnClick="btnLogout_Click"  />
     </form>
 </body>
 </html>
