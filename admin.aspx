@@ -46,6 +46,12 @@
             color: black;
         }
 
+        .licours{
+            margin-left: 50px;
+            margin-top:50px;
+            
+        }
+
 
         
         
@@ -72,6 +78,10 @@
             <h1><strong>GESTION DES COURS ET PROGRAMME</strong></h1></div>
             <hr class="auto-style2" />
             <br />
+
+        <div class="licours">
+            <asp:ListBox ID="ListBox1" runat="server" AutoPostBack="True"  DataTextField="titre" DataValueField="numcours" Height="71px" OnSelectedIndexChanged="ListBox1_SelectedIndexChanged"></asp:ListBox>
+        </div>
 
             <table id="grandTableau">
                 <tr>
@@ -107,7 +117,7 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtTitre" ErrorMessage="*" Font-Bold="True" ForeColor="Red"></asp:RequiredFieldValidator>
                                     </td>
                                     <td>
-                                        <asp:Button ID="btnModifier" runat="server"  Text="Modifier" CssClass="button"  style="height: 29px"  />
+                                        <asp:Button ID="btnModifier" runat="server"  Text="Modifier" CssClass="button"  style="height: 29px" OnClick="btnModifier_Click"  />
                                     </td>
                                 </tr>
                                 
@@ -124,7 +134,7 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="listenseignant" ErrorMessage="*" Font-Bold="True" ForeColor="Red"></asp:RequiredFieldValidator>
                                     </td>
                                     <td>
-                                        <asp:Button ID="btnSupprimer" runat="server"  Text="Supprimer" CssClass="button"  OnClientClick="return ConfirmerEffacer();"  />
+                                        <asp:Button ID="btnSupprimer" runat="server"  Text="Supprimer" CssClass="button"  OnClientClick="return ConfirmerEffacer();" OnClick="btnSupprimer_Click"  />
                                     </td>
                                 </tr>
 
@@ -180,8 +190,7 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="listSession" ErrorMessage="*" Font-Bold="True" ForeColor="Red"></asp:RequiredFieldValidator>
                                     </td>
                                     <td>
-                                        <asp:Button ID="btnAnnuler" runat="server" Text="Annuler" CssClass="button"/>
-                                    </td>
+                                        &nbsp;</td>
                                 </tr>
 
                                 <tr>
@@ -244,6 +253,14 @@
 
                     </td>
                 </tr>
+
+                <tr>
+                    <td>
+
+                       <asp:Button ID="btnAnnuler" runat="server"  Text="Annuler" CssClass="button" OnClick="btnAnnuler_Click"  />
+
+                    </td>
+                </tr>
                 <tr>
 
                     <td colspan="3">   <asp:Label ID="lblErreur" runat="server" Text="Label" Font-Bold="True" ForeColor="Red"></asp:Label></td>
@@ -253,7 +270,7 @@
 
             </table>
 
-        </div>
+       
         
     
     
